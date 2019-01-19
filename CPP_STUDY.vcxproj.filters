@@ -72,10 +72,19 @@
     <ClCompile Include="bj_1904.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="11726.cpp">
+    <ClCompile Include="bj_9465.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="11727.cpp">
+    <ClCompile Include="bj_11726.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="bj_11727.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="bj_2294.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="bj_1699.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
