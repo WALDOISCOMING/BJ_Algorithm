@@ -1,27 +1,34 @@
 #include<iostream>
 #include<string>
+#include<vector>
 using namespace std;
-string arr[101];
-bool valid[101][101];
 string input;
-	int N;
-bool find(int index) {
-	for (int i = 0; i < N; i++) {
-		if (valid[index][i]) {
-					printf("%d\n",i);
-			//실제 맞는지 비교 후 그러면 재호출 시키자.
-			if (input.substr(index,index+arr[i].length()-1)==arr[i]) { 
-				if (input.length()==index+ arr[i].length()) {
-					return true;
-				} else {
-				find(index+arr[i].length()-1);
-				}				
+string arr[101];
+vector<int> v[101];
+bool valid[101][101];
+int N;
+bool check = false;
+
+int find(int index) {
+	for (int i = 0; i < v[index].size(); i++) {
+		int pop = v[index].at(i);
+		if (input.substr(index, arr[pop].size()) == arr[pop]) {
+			if (index + arr[pop].size() == input.size()) {
+				cout << "1";
+				check = true;
+				return 1;
+			}
+			else {
+				find(index + arr[pop].size());
 			}
 		}
 	}
-	return false;
+	if (!check) {
+		cout << "0";
+		check = true;
+	}
+	return 0;
 }
-
 int main() {
 	cin >> input;
 	cin >> N;
@@ -30,12 +37,11 @@ int main() {
 	}
 	for (int i = 0; i < input.length(); i++) {
 		for (int j = 0; j < N; j++) {
-			if (input[i] == arr[j][i])
-				valid[i][j] = true;
+			if (input[i] == arr[j][0]) {
+				v[i].push_back(j);
+			}
 		}
 	}
-	cout << find(0);
-
-
+	find(0);
 	return 0;
 }
