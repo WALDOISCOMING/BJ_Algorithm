@@ -12,19 +12,17 @@ bool check = false;
 int find(int index) {
 	for (int i = 0; i < v[index].size(); i++) {
 		int pop = v[index].at(i);
-		if (input.substr(index, arr[pop].size()) == arr[pop]) {
-			if (index + arr[pop].size() == input.size()) {
-				cout << "1";
-				check = true;
-				return 1;
-			}
-			else {
-				find(index + arr[pop].size());
-			}
+		if (index + arr[pop].size() == input.size()) {
+			cout << "1" << endl;
+			check = true;
+			return 1;
+		}
+		else {
+			find(index + arr[pop].size());
 		}
 	}
 	if (!check) {
-		cout << "0";
+		cout << "0"<<endl;
 		check = true;
 	}
 	return 0;
@@ -38,7 +36,9 @@ int main() {
 	for (int i = 0; i < input.length(); i++) {
 		for (int j = 0; j < N; j++) {
 			if (input[i] == arr[j][0]) {
-				v[i].push_back(j);
+				if (input.length()>= j + arr[i].size() && input.substr(j, arr[i].size()) == arr[i]) {
+					v[i].push_back(j);
+				}
 			}
 		}
 	}
