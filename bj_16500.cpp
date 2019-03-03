@@ -1,47 +1,33 @@
-#include<iostream>
-#include<string>
-#include<vector>
+#include <cstdio>
+#include <cstring>
 using namespace std;
-string input;
-string arr[101];
-vector<int> v[101];
-bool valid[101][101];
-int N;
-bool check = false;
 
-int find(int index) {
-	for (int i = 0; i < v[index].size(); i++) {
-		int pop = v[index].at(i);
-		if (index + arr[pop].size() == input.size()) {
-			cout << "1" << endl;
-			check = true;
-			return 1;
-		}
-		else {
-			find(index + arr[pop].size());
-		}
+int L, N, AL[100];
+char S[101], A[100][101], dp[101];
+
+bool word(int pos) {
+	char &ret = dp[pos];
+	if (ret != -1) return ret;
+	if (pos == L) return ret = 1;
+
+	ret = 0;
+	for (int i = 0; i < N; ++i) {
+		if (L < pos + AL[i]) continue;
+		bool flag = true;
+		for (int j = 0; j < AL[i]; ++j)
+			if (S[pos + j] != A[i][j]) flag = false;
+		if (flag) ret |= word(pos + AL[i]);
 	}
-	if (!check) {
-		cout << "0"<<endl;
-		check = true;
-	}
-	return 0;
+	return ret;
 }
+
 int main() {
-	cin >> input;
-	cin >> N;
-	for (int i = 0; i < N; i++) {
-		cin >> arr[i];
+	scanf("%s %d", S, &N);
+	L = strlen(S);
+	for (int i = 0; i < N; ++i) {
+		scanf("%s", A[i]);
+		AL[i] = strlen(A[i]);
 	}
-	for (int i = 0; i < input.length(); i++) {
-		for (int j = 0; j < N; j++) {
-			if (input[i] == arr[j][0]) {
-				if (input.length()>= j + arr[i].size() && input.substr(j, arr[i].size()) == arr[i]) {
-					v[i].push_back(j);
-				}
-			}
-		}
-	}
-	find(0);
-	return 0;
+	memset(dp, -1, sizeof(dp));
+	printf("%d\n", word(0));
 }
